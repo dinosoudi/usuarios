@@ -2,16 +2,22 @@
 
 Cambio 1
 
+<<<<<<< HEAD
 cambio 2
 
 ### Reference Documentation
+=======
+cambio 3
+
+### Reference Documentation updated
+>>>>>>> 12baaf9 (Update local documentation)
 For further reference, please consider the following sections:
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.11/maven-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.11/maven-plugin/reference/html/#build-image)
 * [Spring Web](https://docs.spring.io/spring-boot/3.2.11/reference/web/servlet.html)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/3.2.11/reference/data/sql.html#data.sql.jpa-and-spring-data)
+
 
 ### Guides
 The following guides illustrate how to use some features concretely:
