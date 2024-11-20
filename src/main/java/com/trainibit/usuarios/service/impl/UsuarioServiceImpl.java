@@ -5,8 +5,6 @@ import com.trainibit.usuarios.repository.UsuarioRepository;
 import com.trainibit.usuarios.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -26,4 +24,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioRepository.save(usuario);
     }
 
+    @Override
+    public Usuario findById(Long id) {
+        return usuarioRepository.findById(id).get();
+    }
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import com.trainibit.usuarios.entity.Usuario;
 
 import java.util.List;
@@ -27,6 +29,12 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Usuario> postUsuario(@RequestBody Usuario usuario){
         usuarioService.guardaUsuario(usuario);
+        return ResponseEntity.ok(usuario);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> getUsuarioById(@PathVariable Long id){
+        Usuario usuario = usuarioService.findById(id);
         return ResponseEntity.ok(usuario);
     }
 }

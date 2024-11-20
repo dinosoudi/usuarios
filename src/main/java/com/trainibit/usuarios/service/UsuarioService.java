@@ -7,4 +7,6 @@ import java.util.List;
 public interface UsuarioService {
     void guardaUsuario(Usuario usuario);
     List<Usuario> findAll();
+
+    Usuario findById(Long id);
 }
