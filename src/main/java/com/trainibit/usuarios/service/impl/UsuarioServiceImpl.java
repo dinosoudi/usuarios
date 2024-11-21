@@ -28,4 +28,22 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Usuario findById(Long id) {
         return usuarioRepository.findById(id).get();
     }
+
+    public boolean deleteById(Long id) {
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean putById(Long id, Usuario usuario) {
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.save(usuario);
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

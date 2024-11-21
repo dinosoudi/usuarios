@@ -9,4 +9,8 @@ public interface UsuarioService {
     List<Usuario> findAll();
 
     Usuario findById(Long id);
+
+    boolean deleteById(Long id);
+
+    boolean putById(Long id, Usuario usuario);
 }
