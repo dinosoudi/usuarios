@@ -1,9 +1,13 @@
 package com.trainibit.usuarios.service.impl;
 
 import com.trainibit.usuarios.entity.Usuario;
+import com.trainibit.usuarios.mapper.UsuarioMapper;
 import com.trainibit.usuarios.repository.UsuarioRepository;
+import com.trainibit.usuarios.response.UsuarioResponse;
 import com.trainibit.usuarios.service.UsuarioService;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +19,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
+    public List<UsuarioResponse> findAll() {
+        return UsuarioMapper.mapListEntityToListDto(usuarioRepository.findAll());
     }
 
 
@@ -39,11 +43,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     public boolean putById(Long id, Usuario usuario) {
-        if (usuarioRepository.existsById(id)) {
+        // revisar si existe por id
+        try {
+            if (!usuarioRepository.existsById(id)) {
+                throw new DataAccessException("Usuario con ID " + id + " no existe") {};
+            }
             usuarioRepository.save(usuario);
             return true;
-        }else {
-            return false;
+        } catch (Exception e) {
+            throw new RuntimeException("Error inesperado al verificar el usuario con ID " + id, e);
         }
     }
 }
