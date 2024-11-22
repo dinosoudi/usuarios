@@ -8,6 +8,7 @@ import com.trainibit.usuarios.service.UsuarioService;
 import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
 
-    public void guardaUsuario( Usuario usuario) {
-        usuarioRepository.save(usuario);
+    public UsuarioResponse guardaUsuario(Usuario usuario) {
+        //usuarioRepository.save(usuario);
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.save(usuario));
     }
 
     @Override
