@@ -42,4 +42,52 @@ public class Usuario {
     @NotNull
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotNull String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    public @NotNull String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(@NotNull String lastName) {
+        this.lastName = lastName;
+    }
+
+    public @NotNull String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotNull String email) {
+        this.email = email;
+    }
+
+    public @NotNull String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotNull String password) {
+        this.password = password;
+    }
+
+    public @NotNull LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(@NotNull LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 }
