@@ -10,7 +10,7 @@ public interface UsuarioService {
 
     List<UsuarioResponse> findAll();
 
-    UsuarioResponse findById(Long id);
+    Usuario findById(Long id);
 
     UsuarioResponse guardaUsuario(UsuarioRequest usuarioNuevo);
 

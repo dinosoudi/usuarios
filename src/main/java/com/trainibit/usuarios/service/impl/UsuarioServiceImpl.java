@@ -32,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponse findById(Long id) {
+    public Usuario findById(Long id) {
 
         // return usuarioRepository.findById(id).get();
         return UsuarioMapper.mapEntityToDto(usuarioRepository.findById(id).get());
