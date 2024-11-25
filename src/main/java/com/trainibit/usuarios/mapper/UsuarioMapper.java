@@ -1,6 +1,7 @@
 package com.trainibit.usuarios.mapper;
 
 import com.trainibit.usuarios.entity.Usuario;
+import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -11,15 +12,14 @@ import java.util.List;
 
 public class UsuarioMapper {
 
-    public static UsuarioResponse mapEntityToDto(@RequestBody Usuario usuario) {
+    public static UsuarioResponse mapEntityToDto(@RequestBody UsuarioRequest usuarioRequest) {
         UsuarioResponse usuarioResponse = new UsuarioResponse();
-        usuarioResponse.setId(usuario.getId());
-        usuarioResponse.setName(usuario.getName());
-        usuarioResponse.setEmail(usuario.getEmail());
-        usuarioResponse.setPassword(usuario.getPassword());
-        usuarioResponse.setBirthDate(usuario.getBirthDate());
-        usuarioResponse.setLastName(usuario.getLastName());
-        usuarioResponse.setEdad(Period.between(usuario.getBirthDate() , LocalDate.now()).getYears());
+        usuarioResponse.setName(usuarioRequest.getName());
+        usuarioResponse.setEmail(usuarioRequest.getEmail());
+        usuarioResponse.setPassword(usuarioRequest.getPassword());
+        usuarioResponse.setBirthDate(usuarioRequest.getBirthDate());
+        usuarioResponse.setLastName(usuarioRequest.getLastName());
+        usuarioResponse.setEdad(Period.between(usuarioRequest.getBirthDate() , LocalDate.now()).getYears());
         return usuarioResponse;
     }
 
@@ -33,14 +33,15 @@ public class UsuarioMapper {
         return usuarioResponses;
     }
 
-    public static Usuario mapDtoToEntity(UsuarioResponse usuarioResponse2) {
-        Usuario usuario = new Usuario();
-        usuario.setId(usuarioResponse2.getId());
-        usuario.setName(usuarioResponse2.getName());
-        usuario.setEmail(usuarioResponse2.getEmail());
-        usuario.setPassword(usuarioResponse2.getPassword());
-        usuario.setBirthDate(usuarioResponse2.getBirthDate());
-        usuario.setLastName(usuarioResponse2.getLastName());
+    public static Usuario mapDtoToEntity(Usuario usuario) {
+        Usuario user = new Usuario();
+
+        user.setName(usuario.getName());
+        user.setEmail(usuario.getEmail());
+        user.setPassword(usuario.getPassword());
+        user.setLastName(usuario.getLastName());
+        user.setBirthDate(usuario.getBirthDate());
+
         return usuario;
     }
 }

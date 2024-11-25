@@ -1,6 +1,7 @@
 package com.trainibit.usuarios.controller;
 
 import com.trainibit.usuarios.mapper.UsuarioMapper;
+import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
 import com.trainibit.usuarios.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -33,9 +34,9 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }*/
 
-    public ResponseEntity<UsuarioResponse> postUsuario(@Valid @RequestBody Usuario usuario){
-        usuarioService.guardaUsuario(usuario);
-        return ResponseEntity.ok(UsuarioMapper.mapEntityToDto(usuario));
+    public ResponseEntity<UsuarioResponse> postUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest){
+        usuarioService.guardaUsuario(usuarioRequest);
+        return ResponseEntity.ok(UsuarioMapper.mapEntityToDto(usuarioRequest));
     }
 
     @GetMapping("/{id}")
