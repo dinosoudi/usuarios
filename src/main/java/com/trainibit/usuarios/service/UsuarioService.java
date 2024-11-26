@@ -5,12 +5,13 @@ import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UsuarioService {
 
     List<UsuarioResponse> findAll();
 
-    UsuarioResponse findById(Long id);
+    UsuarioResponse findById(UUID uuid);
 
     UsuarioResponse guardaUsuario(UsuarioRequest usuarioNuevo);
 

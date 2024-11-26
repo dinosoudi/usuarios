@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.trainibit.usuarios.entity.Usuario;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -30,14 +31,13 @@ public class UsuarioController {
     // Crear o subir usuario
     @PostMapping
     public ResponseEntity<UsuarioResponse> postUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest){
-        Usuario usuario = UsuarioMapper.mapRequestToEntity(usuarioRequest);
-        usuarioService.guardaUsuario(usuarioRequest);
-        return ResponseEntity.ok( UsuarioMapper.mapEntityToDto(usuario));
+
+        return ResponseEntity.ok( usuarioService.guardaUsuario(usuarioRequest) );
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable Long id){
-        return ResponseEntity.ok(usuarioService.findById(id));
+    @GetMapping("/{uuid}")
+    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable UUID uuid){
+        return ResponseEntity.ok(usuarioService.findById(uuid));
     }
 
     @DeleteMapping("/{id}")

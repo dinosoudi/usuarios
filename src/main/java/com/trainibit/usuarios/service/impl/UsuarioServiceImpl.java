@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -29,8 +30,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponse findById(Long id) {
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.findById(id).get());
+    public UsuarioResponse findById(UUID uuid) {
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuid(uuid).get());
     }
 
     public UsuarioResponse deleteById(Long id) {

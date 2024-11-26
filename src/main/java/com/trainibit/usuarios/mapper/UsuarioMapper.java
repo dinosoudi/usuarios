@@ -9,11 +9,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UsuarioMapper {
 
     // recibe una entidad/usuario y regresa un Response/DTO
-    public static UsuarioResponse mapEntityToDto(@RequestBody Usuario usuario) {
+    public static UsuarioResponse mapEntityToDto( Usuario usuario) {
         UsuarioResponse usuarioResponse = new UsuarioResponse();
         usuarioResponse.setName(usuario.getName());
         usuarioResponse.setEmail(usuario.getEmail());
@@ -21,12 +22,13 @@ public class UsuarioMapper {
         usuarioResponse.setBirthDate(usuario.getBirthDate());
         usuarioResponse.setLastName(usuario.getLastName());
         usuarioResponse.setEdad(Period.between(usuario.getBirthDate() , LocalDate.now()).getYears());
+        usuarioResponse.setUuid(usuario.getUuid());
         return usuarioResponse;
     }
 
 
     // recibe una lista de entidades/usuarios y regresa lista de Request/DTO
-    public static List<UsuarioResponse> mapListEntityToListDto(@RequestBody List<Usuario> usuarios) {
+    public static List<UsuarioResponse> mapListEntityToListDto( List<Usuario> usuarios) {
         List<UsuarioResponse> usuarioResponses = new ArrayList<>();
         for (Usuario usuario : usuarios) {
             usuarioResponses.add(mapEntityToDto(usuario));
@@ -42,6 +44,7 @@ public class UsuarioMapper {
         usuario.setPassword(request.getPassword());
         usuario.setBirthDate(request.getBirthDate());
         usuario.setLastName(request.getLastName());
+        usuario.setUuid(UUID.randomUUID());
         return usuario;
     }
 
