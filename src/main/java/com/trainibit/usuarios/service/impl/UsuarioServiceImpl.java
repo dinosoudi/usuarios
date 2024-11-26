@@ -6,10 +6,8 @@ import com.trainibit.usuarios.repository.UsuarioRepository;
 import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
 import com.trainibit.usuarios.service.UsuarioService;
-import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,30 +25,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     public UsuarioResponse guardaUsuario(UsuarioRequest usuarioRequest) {
-        //usuarioRepository.save(usuario);
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.save(UsuarioMapper.mapDtoToEntity(usuarioRequest)));
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.save(UsuarioMapper.mapRequestToEntity(usuarioRequest)));
     }
 
     @Override
-    public Usuario findById(Long id) {
-
-        // return usuarioRepository.findById(id).get();
+    public UsuarioResponse findById(Long id) {
         return UsuarioMapper.mapEntityToDto(usuarioRepository.findById(id).get());
     }
 
-    public boolean deleteById(Long id) {
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteByIdActive(id);
-            return true;
-        }else {
-            return false;
-        }
+    public UsuarioResponse deleteById(Long id) {
+        usuarioRepository.deleteByIdActive(id);
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.findById(id).get());
     }
 
-    public boolean putById(Long id, UsuarioRequest usuarioRequest) {
-
+    public UsuarioResponse putById(Long id, UsuarioRequest usuarioRequest) {
         // revisar si existe por id
-        try {
+       /* try {
             if (!usuarioRepository.existsById(id)) {
                 throw new DataAccessException("Usuario con ID " + id + " no existe") {};
             }
@@ -66,6 +56,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             return true;
         } catch (Exception e) {
             throw new RuntimeException("Error inesperado al verificar el usuario con ID " + id, e);
-        }
+        }*/
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.updateAudit( UsuarioMapper.mapRequestToEntity(usuarioRequest) ));
+
     }
 }

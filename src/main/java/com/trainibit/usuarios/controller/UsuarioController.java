@@ -24,44 +24,38 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity< List<UsuarioResponse> > getUsuarios(){
-
         return ResponseEntity.ok(usuarioService.findAll());
     }
 
+    // Crear o subir usuario
     @PostMapping
-    /*public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario){
-        usuarioService.guardaUsuario(usuario);
-        return ResponseEntity.ok(usuario);
-    }*/
-
     public ResponseEntity<UsuarioResponse> postUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest){
+        Usuario usuario = UsuarioMapper.mapRequestToEntity(usuarioRequest);
         usuarioService.guardaUsuario(usuarioRequest);
-        return ResponseEntity.ok(UsuarioMapper.mapEntityToDto(usuarioRequest));
+        return ResponseEntity.ok( UsuarioMapper.mapEntityToDto(usuario));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getUsuarioById(@PathVariable Long id){
-        Usuario usuario = usuarioService.findById(id);
-        return ResponseEntity.ok(usuario);
+    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable Long id){
+        return ResponseEntity.ok(usuarioService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUsuarioById(@PathVariable Long id){
-        boolean borrado = usuarioService.deleteById(id);
-        if(borrado){
-            return ResponseEntity.ok("Usuario borrado correctamnte");
-        }else {
-            return ResponseEntity.ok("Error, Usuario no borrado");
-        }
+    public ResponseEntity<UsuarioResponse> deleteUsuarioById(@PathVariable Long id){
+        // debe cambiar la bandera de visible en usuarioServiceimplement
+        UsuarioResponse usuarioResponse = usuarioService.deleteById(id);
+        return ResponseEntity.ok(usuarioResponse);
     }
 
+    // Update o actualiza
     @PutMapping("/{id}")
-    public ResponseEntity<String> putUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
-        boolean editado = usuarioService.putById(id, usuario);
-        if(editado){
-            return ResponseEntity.ok("Usuario editado correctamnte");
-        }else
-            return ResponseEntity.ok("Error, Usuario no editado");
+    public ResponseEntity< UsuarioResponse > putUsuario(@PathVariable Long id, @RequestBody UsuarioRequest usuarioRequest){
+        // boolean editado = usuarioService.putById(id, usuarioRequest );
+        // debe actualizar el usuario con el mismo ID
+
+        UsuarioResponse usuarioResponse = usuarioService.putById(id, usuarioRequest);
+        return ResponseEntity.ok(usuarioResponse);
+
     }
 
 }

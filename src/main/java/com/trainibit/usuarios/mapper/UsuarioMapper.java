@@ -12,19 +12,20 @@ import java.util.List;
 
 public class UsuarioMapper {
 
-    public static UsuarioResponse mapEntityToDto(@RequestBody UsuarioRequest usuarioRequest) {
+    // recibe una entidad/usuario y regresa un Response/DTO
+    public static UsuarioResponse mapEntityToDto(@RequestBody Usuario usuario) {
         UsuarioResponse usuarioResponse = new UsuarioResponse();
-        usuarioResponse.setName(usuarioRequest.getName());
-        usuarioResponse.setEmail(usuarioRequest.getEmail());
-        usuarioResponse.setPassword(usuarioRequest.getPassword());
-        usuarioResponse.setBirthDate(usuarioRequest.getBirthDate());
-        usuarioResponse.setLastName(usuarioRequest.getLastName());
-        usuarioResponse.setEdad(Period.between(usuarioRequest.getBirthDate() , LocalDate.now()).getYears());
+        usuarioResponse.setName(usuario.getName());
+        usuarioResponse.setEmail(usuario.getEmail());
+        usuarioResponse.setPassword(usuario.getPassword());
+        usuarioResponse.setBirthDate(usuario.getBirthDate());
+        usuarioResponse.setLastName(usuario.getLastName());
+        usuarioResponse.setEdad(Period.between(usuario.getBirthDate() , LocalDate.now()).getYears());
         return usuarioResponse;
     }
 
 
-
+    // recibe una lista de entidades/usuarios y regresa lista de Request/DTO
     public static List<UsuarioResponse> mapListEntityToListDto(@RequestBody List<Usuario> usuarios) {
         List<UsuarioResponse> usuarioResponses = new ArrayList<>();
         for (Usuario usuario : usuarios) {
@@ -33,15 +34,15 @@ public class UsuarioMapper {
         return usuarioResponses;
     }
 
-    public static Usuario mapDtoToEntity(Usuario usuario) {
-        Usuario user = new Usuario();
-
-        user.setName(usuario.getName());
-        user.setEmail(usuario.getEmail());
-        user.setPassword(usuario.getPassword());
-        user.setLastName(usuario.getLastName());
-        user.setBirthDate(usuario.getBirthDate());
-
+    // pasa un Request y regresa un usuario/entidad
+    public static Usuario mapRequestToEntity(UsuarioRequest request) {
+        Usuario usuario = new Usuario();
+        usuario.setName(request.getName());
+        usuario.setEmail(request.getEmail());
+        usuario.setPassword(request.getPassword());
+        usuario.setBirthDate(request.getBirthDate());
+        usuario.setLastName(request.getLastName());
         return usuario;
     }
+
 }

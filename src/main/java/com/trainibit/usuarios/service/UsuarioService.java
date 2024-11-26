@@ -10,11 +10,11 @@ public interface UsuarioService {
 
     List<UsuarioResponse> findAll();
 
-    Usuario findById(Long id);
+    UsuarioResponse findById(Long id);
 
     UsuarioResponse guardaUsuario(UsuarioRequest usuarioNuevo);
 
-    boolean deleteById(Long id);
+    UsuarioResponse deleteById(Long id);
 
-    boolean putById(Long id, UsuarioRequest usuarioActualizado);
+    UsuarioResponse putById(Long id, UsuarioRequest usuarioActualizado);
 }

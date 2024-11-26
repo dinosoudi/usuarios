@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @Data
 public class AuditableRecord {
 
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_date", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private Timestamp updatedAt;
 
     @ColumnDefault("true")

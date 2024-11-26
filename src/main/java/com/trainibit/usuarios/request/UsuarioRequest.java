@@ -19,7 +19,7 @@ public class UsuarioRequest {
     private String email;
 
     @NotNull
-    private String password; // Si necesitas recibirla
+    private String password;
 
     @NotNull
     private LocalDate birthDate;
