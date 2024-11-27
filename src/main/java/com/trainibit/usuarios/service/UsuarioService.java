@@ -15,7 +15,7 @@ public interface UsuarioService {
 
     UsuarioResponse guardaUsuario(UsuarioRequest usuarioNuevo);
 
-    UsuarioResponse deleteById(Long id);
+    UsuarioResponse deleteById(UUID uuid);
 
-    UsuarioResponse putById(Long id, UsuarioRequest usuarioActualizado);
+    UsuarioResponse putById(UUID uuid, UsuarioRequest usuarioActualizado);
 }

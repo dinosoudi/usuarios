@@ -9,7 +9,6 @@ import com.trainibit.usuarios.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -24,41 +23,50 @@ public class UsuarioServiceImpl implements UsuarioService {
         return UsuarioMapper.mapListEntityToListDto(usuarioRepository.findAll());
     }
 
+    @Override
+    public UsuarioResponse findById(UUID uuid) {
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuid(uuid).get());
+    }
 
     public UsuarioResponse guardaUsuario(UsuarioRequest usuarioRequest) {
         return UsuarioMapper.mapEntityToDto(usuarioRepository.save(UsuarioMapper.mapRequestToEntity(usuarioRequest)));
     }
 
     @Override
-    public UsuarioResponse findById(UUID uuid) {
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuid(uuid).get());
+    public UsuarioResponse deleteById(UUID uuid) {
+        /*//cambia el active a false y se guarda
+        usuarioRepository.deleteByIdActive(uuid);
+        //regresa el usuarioResponse cabiado
+        return UsuarioMapper.mapEntityToDto( usuarioRepository.findByUuid(uuid).get() );*/
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuid(uuid).map(usuario -> {
+
+            usuarioRepository.deleteByIdActive(uuid);
+            return usuario; // Devuelve el usuario eliminado
+        }).orElseThrow(() -> new DataAccessException("Error al eliminar usuario con ID: " + uuid){
+
+        }));
     }
 
-    public UsuarioResponse deleteById(Long id) {
-        usuarioRepository.deleteByIdActive(id);
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.findById(id).get());
-    }
+    public UsuarioResponse putById(UUID uuid, UsuarioRequest usuarioRequest) {
+       /* Usuario usuario = usuarioRepository.findByUuid(uuid).get();
 
-    public UsuarioResponse putById(Long id, UsuarioRequest usuarioRequest) {
-        // revisar si existe por id
-       /* try {
-            if (!usuarioRepository.existsById(id)) {
-                throw new DataAccessException("Usuario con ID " + id + " no existe") {};
-            }
-            //cambiar valores de id
-            usuarioRequest.setName(usuarioRequest.getName());
-            usuarioRequest.setEmail(usuarioRequest.getEmail());
-            usuarioRequest.setPassword(usuarioRequest.getPassword());
-            usuarioRequest.setBirthDate(usuarioRequest.getBirthDate());
-            usuarioRequest.setLastName(usuarioRequest.getLastName());
-            //verificar el nombre de
+        usuario.setBirthDate(usuarioRequest.getBirthDate());
+        usuario.setEmail(usuarioRequest.getEmail());
+        usuario.setPassword(usuarioRequest.getPassword());
+        usuario.setName(usuarioRequest.getName());
+        usuario.setLastName(usuarioRequest.getLastName());
+        usuarioRepository.updateAudit(usuario);
 
-            usuarioRepository.save(usuarioRequest);
-            return true;
-        } catch (Exception e) {
-            throw new RuntimeException("Error inesperado al verificar el usuario con ID " + id, e);
-        }*/
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.updateAudit( UsuarioMapper.mapRequestToEntity(usuarioRequest) ));
+        return UsuarioMapper.mapEntityToDto(usuario);*/
+        return usuarioRepository.findByUuid(uuid).map(usuario -> {
+            usuario.setName(usuarioRequest.getName());
+            usuario.setLastName(usuarioRequest.getLastName());
+            usuario.setEmail(usuarioRequest.getEmail());
+            usuario.setPassword(usuarioRequest.getPassword());
+            usuario.setBirthDate(usuarioRequest.getBirthDate());
+            return UsuarioMapper.mapEntityToDto(usuarioRepository.updateAudit(usuario));
+        }).orElseThrow(() -> new DataAccessException("Error al actualizar usuario con ID: " + uuid) {
 
+        });
     }
 }

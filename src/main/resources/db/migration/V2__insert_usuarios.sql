@@ -10,3 +10,4 @@ VALUES('Justin', 'Vazquez', 'justin.vazquez@trainibit.com', '123', '2002-04-24',
 INSERT INTO public.usuarios
 ("name", last_name, email, "password", birth_date, active, updated_at, created_at)
 VALUES('Diego', 'Dominguez', 'diego.dominguez@trainibit.com', '123', '2002-09-09', true, '2024-11-26 11:10:51.055', '2024-11-26 11:10:51.058');
+

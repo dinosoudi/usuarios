@@ -40,22 +40,15 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.findById(uuid));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> deleteUsuarioById(@PathVariable Long id){
-        // debe cambiar la bandera de visible en usuarioServiceimplement
-        UsuarioResponse usuarioResponse = usuarioService.deleteById(id);
-        return ResponseEntity.ok(usuarioResponse);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<UsuarioResponse> deleteUsuarioById(@PathVariable UUID uuid){
+        return ResponseEntity.ok(usuarioService.deleteById(uuid));
     }
 
     // Update o actualiza
-    @PutMapping("/{id}")
-    public ResponseEntity< UsuarioResponse > putUsuario(@PathVariable Long id, @RequestBody UsuarioRequest usuarioRequest){
-        // boolean editado = usuarioService.putById(id, usuarioRequest );
-        // debe actualizar el usuario con el mismo ID
-
-        UsuarioResponse usuarioResponse = usuarioService.putById(id, usuarioRequest);
-        return ResponseEntity.ok(usuarioResponse);
-
+    @PutMapping("/{uuid}")
+    public ResponseEntity< UsuarioResponse > putUsuario(@PathVariable UUID uuid, @RequestBody UsuarioRequest usuarioRequest){
+        return ResponseEntity.ok(usuarioService.putById(uuid, usuarioRequest));
     }
 
 }

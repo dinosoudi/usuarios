@@ -12,9 +12,9 @@ import java.util.UUID;
 
 @Repository
 public interface UsuarioRepository extends AuditableRepository<Usuario, Long> {
-    @Override
-    default void deleteByIdActive(Long id){
-        Usuario entity = findById(id).get();
+
+    default void deleteByIdActive(UUID uuid){
+        Usuario entity = findByUuid(uuid).get();
         entity.setActive(false);
         save(entity);
     }
