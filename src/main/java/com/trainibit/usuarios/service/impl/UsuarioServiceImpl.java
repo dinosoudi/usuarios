@@ -1,6 +1,5 @@
 package com.trainibit.usuarios.service.impl;
 
-import com.trainibit.usuarios.entity.Usuario;
 import com.trainibit.usuarios.mapper.UsuarioMapper;
 import com.trainibit.usuarios.repository.UsuarioRepository;
 import com.trainibit.usuarios.request.UsuarioRequest;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -20,12 +20,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public List<UsuarioResponse> findAll() {
-        return UsuarioMapper.mapListEntityToListDto(usuarioRepository.findAll());
+        //verificar si son active = true y guardarlos en una lista
+
+        return UsuarioMapper.mapListEntityToListDto(usuarioRepository.findByActiveTrue());
     }
 
     @Override
     public UsuarioResponse findById(UUID uuid) {
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuid(uuid).get());
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuidAndActiveTrue(uuid).orElseThrow(() -> new NoSuchElementException("Error al buscar usuario con ID: " + uuid){}));
     }
 
     public UsuarioResponse guardaUsuario(UsuarioRequest usuarioRequest) {
@@ -38,9 +40,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioRepository.deleteByIdActive(uuid);
         //regresa el usuarioResponse cabiado
         return UsuarioMapper.mapEntityToDto( usuarioRepository.findByUuid(uuid).get() );*/
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuid(uuid).map(usuario -> {
+        return UsuarioMapper.mapEntityToDto(usuarioRepository.findByUuidAndActiveTrue(uuid).map(usuario -> {
 
             usuarioRepository.deleteByIdActive(uuid);
+            usuarioRepository.updateAudit(usuario);
             return usuario; // Devuelve el usuario eliminado
         }).orElseThrow(() -> new DataAccessException("Error al eliminar usuario con ID: " + uuid){
 
@@ -58,7 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioRepository.updateAudit(usuario);
 
         return UsuarioMapper.mapEntityToDto(usuario);*/
-        return usuarioRepository.findByUuid(uuid).map(usuario -> {
+        return usuarioRepository.findByUuidAndActiveTrue(uuid).map(usuario -> {
             usuario.setName(usuarioRequest.getName());
             usuario.setLastName(usuarioRequest.getLastName());
             usuario.setEmail(usuarioRequest.getEmail());

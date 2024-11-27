@@ -20,6 +20,6 @@ public class AuditableRecord {
     private Timestamp updatedAt;
 
     @ColumnDefault("true")
-    @Column(name = "active")
-    private Boolean active = false;
+    @Column(name = "active", insertable = false, nullable = false)
+    private Boolean active;
 }
