@@ -16,6 +16,7 @@ public class UsuarioResponse {
     private LocalDate birthDate;
     private int edad;
     private UUID uuid;
+    private String nombrePlaneta;
 
 
 

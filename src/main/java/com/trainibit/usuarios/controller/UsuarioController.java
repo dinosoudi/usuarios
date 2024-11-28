@@ -5,6 +5,7 @@ import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
 import com.trainibit.usuarios.service.UsuarioService;
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,7 +31,7 @@ public class UsuarioController {
 
     // Crear o subir usuario
     @PostMapping
-    public ResponseEntity<UsuarioResponse> postUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest){
+    public ResponseEntity<UsuarioResponse> postUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest) {
 
         return ResponseEntity.ok( usuarioService.guardaUsuario(usuarioRequest) );
     }

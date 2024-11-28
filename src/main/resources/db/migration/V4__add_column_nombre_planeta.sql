@@ -1,0 +1,1 @@
+ALTER TABLE public.usuarios ADD nombre_planeta varchar NULL;
