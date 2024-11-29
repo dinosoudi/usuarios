@@ -23,6 +23,7 @@ public class UsuarioMapper {
         usuarioResponse.setLastName(usuario.getLastName());
         usuarioResponse.setEdad(Period.between(usuario.getBirthDate() , LocalDate.now()).getYears());
         usuarioResponse.setUuid(usuario.getUuid());
+        usuarioResponse.setNombrePlaneta(usuario.getNombrePlaneta());
         return usuarioResponse;
     }
 

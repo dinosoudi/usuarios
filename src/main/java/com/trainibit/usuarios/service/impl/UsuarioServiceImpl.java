@@ -1,5 +1,6 @@
 package com.trainibit.usuarios.service.impl;
 
+import com.trainibit.usuarios.entity.Usuario;
 import com.trainibit.usuarios.mapper.UsuarioMapper;
 import com.trainibit.usuarios.repository.UsuarioRepository;
 import com.trainibit.usuarios.request.UsuarioRequest;
@@ -37,7 +38,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     // regresa error 400 bad request exception si hay datos incompletos
     public UsuarioResponse guardaUsuario(UsuarioRequest usuarioRequest){
-        return UsuarioMapper.mapEntityToDto(usuarioRepository.save(UsuarioMapper.mapRequestToEntity(usuarioRequest)));
+        Usuario usuario = UsuarioMapper.mapRequestToEntity(usuarioRequest);
+        usuario.setNombrePlaneta( obtenerNombrePlanetaAleatorio());
+        Usuario usuarioGuardado = usuarioRepository.save(usuario);
+        return UsuarioMapper.mapEntityToDto(usuarioGuardado);
     }
 
     @Override
@@ -64,7 +68,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     private String obtenerNombrePlanetaAleatorio() {
-        int idPlaneta = (int) (Math.random() * 50) + 1;
+        int idPlaneta = (int) (Math.random() * 60) + 1;
+        System.out.println(idPlaneta);
         return planetService.getPlanetById(idPlaneta).getResult().getProperties().getName();
     }
 }

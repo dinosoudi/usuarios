@@ -1,13 +1,12 @@
 package com.trainibit.usuarios.service;
 
-import com.trainibit.usuarios.entity.Usuario;
 import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
-import org.apache.coyote.BadRequestException;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public interface UsuarioService {
 
     List<UsuarioResponse> findAll();
