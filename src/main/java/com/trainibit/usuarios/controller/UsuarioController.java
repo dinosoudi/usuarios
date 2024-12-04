@@ -1,17 +1,13 @@
 package com.trainibit.usuarios.controller;
 
-import com.trainibit.usuarios.mapper.UsuarioMapper;
 import com.trainibit.usuarios.request.UsuarioRequest;
 import com.trainibit.usuarios.response.UsuarioResponse;
 import com.trainibit.usuarios.service.UsuarioService;
 import jakarta.validation.Valid;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import com.trainibit.usuarios.entity.Usuario;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,8 +33,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable UUID uuid){
-        return ResponseEntity.ok(usuarioService.findById(uuid));
+    public UsuarioResponse getUsuarioById(@PathVariable UUID uuid){
+        return usuarioService.findById(uuid);
     }
 
     @DeleteMapping("/{uuid}")
