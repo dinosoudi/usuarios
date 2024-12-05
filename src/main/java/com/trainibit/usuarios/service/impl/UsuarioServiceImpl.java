@@ -19,8 +19,6 @@ import com.trainibit.usuarios.service.PlanetService;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -73,7 +71,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             return UsuarioMapper2.mapEntityToDto(usuarioRepository.updateAudit(usuario));
         }).orElseThrow(() -> new NoSuchElementException("Error al actualizar usuario con ID: " + uuid) {});
     }
-
 
     private String obtenerNombrePlanetaAleatorio() {
         int idPlaneta = (int) (Math.random() * 60) + 1;
