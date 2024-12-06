@@ -42,6 +42,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioMapper.mapEntityToDto(usuarioRepository.findByUuidAndActiveTrue(uuid).orElseThrow(() -> new NoSuchElementException("Error al buscar usuario con ID: " + uuid){}));
     }
 
+
+
+
+
     // regresa error 400 bad request exception si hay datos incompletos
     public UsuarioResponse guardaUsuario(UsuarioRequest usuarioRequest){
         Usuario usuario = UsuarioMapper2.mapRequestToEntity(usuarioRequest);
